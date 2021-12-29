@@ -71,8 +71,6 @@ async def stim_agent(dut, fpath=None):
         dut.I_DATA.value = 0
 
         
-
-        
 async def monitor_agent(dut):
     done = False
 

@@ -1,6 +1,6 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1640742147" />
-    <testcase classname="testbench" file="/work/cocotb/testbench.py" lineno="92" name="test1" ratio_time="118398.61682009533" sim_time_ns="20055.001" time="0.16938543319702148" />
+    <property name="random_seed" value="1640742672" />
+    <testcase classname="testbench" file="/work/cocotb/testbench.py" lineno="92" name="test1" ratio_time="116526.52689176415" sim_time_ns="20055.001" time="0.17210674285888672" />
   </testsuite>
 </testsuites>
