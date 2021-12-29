@@ -8,7 +8,7 @@ export LANGUAGE = C
 SIM ?= verilator
 TOPLEVEL_LANG ?= verilog
 
-VERILOG_SOURCES += $(PWD)/../ac1/top.sv
+VERILOG_SOURCES += $(PWD)/top.sv
 # use VHDL_SOURCES for VHDL files
 
 # TOPLEVEL is the name of the toplevel module in your Verilog or VHDL file
