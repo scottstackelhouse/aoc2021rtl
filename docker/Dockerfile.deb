@@ -1,0 +1,73 @@
+#
+## Original copyright notice:
+## Copyright 2020 by Stefan Wallentowitz. This program is free
+## software; you can redistribute it and/or modify it under the terms
+## of the GNU Lesser General Public License Version 3.
+
+# Portions Copyright 2021 by Scott Stackelhouse.  You can redistribute
+# and/or modify this modified version under the terms of the GNU Lesser
+# General Public License Version 3
+#
+# Modifications consist are related to rebasing on debian.  The original
+# can be found at https://github.com/wallento/verilator.
+
+FROM debian:buster-20211201-slim
+
+RUN apt-get update \
+   && DEBIAN_FRONTEND=noninteractive \
+    && apt-get install --no-install-recommends -y \
+                        autoconf \
+                        bc \
+                        bison \
+                        build-essential \
+                        ca-certificates \
+                        ccache \
+                        cmake \
+                        flex \
+                        gcc \
+                        g++ \
+                        git \
+                        libfl-dev \
+                        libgoogle-perftools-dev \
+                        locales \
+                        make \
+                        perl \
+                        python3 \
+                        python3-dev \
+                        python3-pip \
+                        wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+ARG REPO=https://github.com/verilator/verilator
+ARG SOURCE_COMMIT=master
+
+WORKDIR /tmp
+
+COPY build-systemc.sh /tmp/
+RUN ./build-systemc.sh
+
+COPY build.sh /tmp/build.sh
+
+ENV VERILATOR_AUTHOR_SITE=0
+RUN ./build.sh 
+
+RUN cd /tmp/verilator \
+   && make install
+
+RUN python3 -m pip install cocotb==1.6.1
+RUN python3 -m pip install pytest==6.2.5
+RUN python3 -m pip install numpy==1.21.5
+RUN python3 -m pip install pyuvm==2.5
+
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
+
+ENV LANG en_US.UTF-8 
+
+RUN mkdir /work
+
+WORKDIR /work
+
+ENTRYPOINT [ "/bin/bash" ]

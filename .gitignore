@@ -1,0 +1,13 @@
+*.dmp
+*.log
+*.csrc
+*.vcd
+obj_*
+logs
+.DS_Store
+.vscode
+x
+build/
+docker/systemc-2.3.3/
+sim_build/
+__pycache__/
