@@ -11,3 +11,4 @@ build/
 docker/systemc-2.3.3/
 sim_build/
 __pycache__/
+results.xml
